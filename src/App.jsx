@@ -26,6 +26,7 @@ import {
   Fingerprint
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ReactLenis } from 'lenis/react';
 import emailjs from '@emailjs/browser';
 import ProjectCard from './components/ProjectCard';
 import ExperienceItem from './components/ExperienceItem';
@@ -35,6 +36,7 @@ import logoDark from './assets/logo-dark.png';
 import logoLight from './assets/logo-light.png';
 import devCollabImg from './assets/devcollab.jpg';
 import tgbImg from './assets/tgb.png';
+import resumeFile from './assets/Resume.pdf';
 
 // Hardcoded Static Data
 const PROJECTS_DATA = [
@@ -55,27 +57,6 @@ const PROJECTS_DATA = [
     category: "Web App",
     image: tgbImg,
     liveLink: "https://the-good-burger.vercel.app/"
-  },
-  {
-    id: 3,
-    title: "E-Commerce Platform",
-    description: "A full-featured online store with payment integration.",
-    techStack: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
-    category: "Web Development"
-  },
-  {
-    id: 4,
-    title: "AI Chatbot",
-    description: "Intelligent customer support bot using OpenAI API.",
-    techStack: ["Next.js", "Python", "FastAPI"],
-    category: "AI/ML"
-  },
-  {
-    id: 5,
-    title: "Cloud-Sync Dashboard",
-    description: "Real-time infrastructure monitoring with distributed data syncing.",
-    techStack: ["Go", "Distributed Systems", "Redis", "Docker"],
-    category: "Cloud Systems"
   }
 ];
 
@@ -307,11 +288,15 @@ const App = () => {
                 transition={{ delay: 0.2, duration: 0.5 }}
                 className="flex flex-row items-center justify-center lg:justify-start gap-4 pt-4 sm:pt-6"
               >
-                <button className="group relative bg-brand-purple text-white px-6 py-3 rounded-lg text-sm font-bold tracking-tight hover:brightness-110 transition-all flex items-center gap-2 overflow-hidden">
+                <a
+                  href={resumeFile}
+                  download="Abu_Bakar_Resume.pdf"
+                  className="group relative bg-brand-purple text-white px-6 py-3 rounded-lg text-sm font-bold tracking-tight hover:brightness-110 transition-all flex items-center gap-2 overflow-hidden"
+                >
                   <Download size={16} className="relative z-10" />
                   <span className="relative z-10">Get Resume</span>
                   <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                </button>
+                </a>
                 <button
                   onClick={() => setActiveSection('Contact')}
                   className="group bg-sidebar-bg/50 border border-border-base text-text-muted hover:text-text-base hover:bg-[#1a1a1a] hover:border-border-base px-6 py-3 rounded-lg text-sm font-bold tracking-tight transition-all duration-200"
@@ -418,58 +403,44 @@ const App = () => {
                 </motion.p>
               </div>
 
-              {/* Top-Docked Cyberpunk HUD Navigation */}
-              <div className="flex items-center justify-center md:justify-end gap-6">
-                <div className="flex items-center gap-4 bg-sidebar-bg/20 backdrop-blur-md border border-border-base/30 rounded-2xl px-6 py-3 shadow-sm relative group">
-                  {/* Decorative Scanline Effect */}
-                  <div className="absolute inset-0 bg-linear-to-b from-transparent via-brand-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-
+              {/* Sleek Minimalist Carousel Navigation */}
+              <div className="flex items-center gap-4">
+                <div className="flex items-center bg-sidebar-bg/40 backdrop-blur-xl border border-border-base rounded-2xl p-1.5 shadow-lg relative group">
                   {/* Previous Button */}
                   <button
                     onClick={() => setProjectsIndex(Math.max(0, projectsIndex - 1))}
                     disabled={projectsIndex === 0}
-                    className={`flex items-center gap-2 font-mono text-[10px] tracking-widest transition-all duration-300 ${projectsIndex === 0
+                    className={`p-2.5 rounded-xl transition-all duration-300 ${projectsIndex === 0
                       ? 'opacity-20 cursor-not-allowed'
-                      : 'hover:text-brand-purple group/prev cursor-pointer'
+                      : 'hover:bg-brand-purple/10 text-text-muted hover:text-brand-purple cursor-pointer'
                       }`}
                   >
-                    <span className="text-brand-purple/50 group-hover/prev:text-brand-purple transition-colors">[</span>
-                    <ChevronLeft size={16} className="group-hover/prev:-translate-x-1 transition-transform" />
-                    <span className="hidden sm:inline">NAV.PREV</span>
-                    <span className="text-brand-purple/50 group-hover/prev:text-brand-purple transition-colors">]</span>
+                    <ChevronLeft size={20} />
                   </button>
 
-                  {/* Segmented Progress Indicator */}
-                  <div className="flex flex-col items-center gap-1.5 px-4 border-x border-border-base/20">
-                    <div className="font-mono text-[9px] text-text-muted font-black tracking-[0.3em] uppercase">
-                      Sector {(projectsIndex + 1).toString().padStart(2, '0')}
-                    </div>
-                    <div className="flex gap-1">
-                      {Array.from({ length: Math.ceil(projects.length / 2) + 1 }).map((_, i) => (
-                        <div
-                          key={i}
-                          className={`h-1.5 w-3 rounded-[1px] transition-all duration-500 ${i === Math.floor(projectsIndex / 2)
-                            ? 'bg-brand-purple shadow-[0_0_10px_rgba(124,58,237,0.6)]'
-                            : 'bg-border-base/20'
-                            }`}
-                        />
-                      ))}
-                    </div>
+                  {/* Progress Indicator */}
+                  <div className="flex items-center gap-1.5 px-4 border-x border-border-base/10">
+                    {Array.from({ length: Math.ceil(projects.length / 2) }).map((_, i) => (
+                      <div
+                        key={i}
+                        className={`h-1 rounded-full transition-all duration-500 ${i === Math.floor(projectsIndex / 2)
+                          ? 'w-6 bg-brand-purple'
+                          : 'w-2 bg-border-base/30'
+                          }`}
+                      />
+                    ))}
                   </div>
 
                   {/* Next Button */}
                   <button
                     onClick={() => setProjectsIndex(Math.min(projects.length - 2, projectsIndex + 1))}
                     disabled={projectsIndex >= projects.length - 2}
-                    className={`flex items-center gap-2 font-mono text-[10px] tracking-widest transition-all duration-300 ${projectsIndex >= projects.length - 2
+                    className={`p-2.5 rounded-xl transition-all duration-300 ${projectsIndex >= projects.length - 2
                       ? 'opacity-20 cursor-not-allowed'
-                      : 'hover:text-brand-purple group/next cursor-pointer'
+                      : 'hover:bg-brand-purple/10 text-text-muted hover:text-brand-purple cursor-pointer'
                       }`}
                   >
-                    <span className="text-brand-purple/50 group-hover/next:text-brand-purple transition-colors">[</span>
-                    <span className="hidden sm:inline">NAV.NEXT</span>
-                    <ChevronRight size={16} className="group-hover/next:translate-x-1 transition-transform" />
-                    <span className="text-brand-purple/50 group-hover/next:text-brand-purple transition-colors">]</span>
+                    <ChevronRight size={20} />
                   </button>
                 </div>
               </div>
@@ -779,282 +750,284 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-bg-base text-text-base selection:bg-brand-purple/30 selection:text-brand-purple font-sans tracking-tight transition-colors duration-300">
-      {/* Top Navbar */}
-      <nav className="fixed top-0 left-0 right-0 h-16 border-b border-border-base bg-bg-base/80 backdrop-blur-xl z-[100] flex items-center justify-between px-6 lg:px-12 transition-colors duration-300">
-        <div className="flex items-center space-x-12">
-          <div
-            onClick={() => setActiveSection('Introduction')}
-            className="flex items-center space-x-2 sm:space-x-3 cursor-pointer group"
-          >
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl overflow-hidden flex items-center justify-center shadow-[0_0_20px_rgba(124,58,237,0.2)] transition-transform duration-300 group-hover:scale-105">
-              <img src={isDarkMode ? logoDark : logoLight} alt="Logo" className="w-full h-full object-cover" />
-            </div>
-            <span className="hidden sm:block text-lg sm:text-xl font-bold tracking-tighter transition-colors group-hover:text-brand-purple truncate sm:max-w-none">abubakar.khawaja</span>
-          </div>
-          <div className="hidden lg:flex items-center space-x-6 text-sm font-medium text-text-muted">
-            <a
-              href="https://www.linkedin.com/in/abu-bakar-khawaja-dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 group p-2 transition-colors text-text-muted hover:text-text-base"
+    <ReactLenis root>
+      <div className="min-h-screen bg-bg-base text-text-base selection:bg-brand-purple/30 selection:text-brand-purple font-sans tracking-tight transition-colors duration-300">
+        {/* Top Navbar */}
+        <nav className="fixed top-0 left-0 right-0 h-16 border-b border-border-base bg-bg-base/80 backdrop-blur-xl z-[100] flex items-center justify-between px-6 lg:px-12 transition-colors duration-300">
+          <div className="flex items-center space-x-12">
+            <div
+              onClick={() => setActiveSection('Introduction')}
+              className="flex items-center space-x-2 sm:space-x-3 cursor-pointer group"
             >
-              <Linkedin size={16} className="group-hover:scale-110 transition-transform" />
-              <span className="font-bold tracking-tight">LinkedIn</span>
-            </a>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl overflow-hidden flex items-center justify-center shadow-[0_0_20px_rgba(124,58,237,0.2)] transition-transform duration-300 group-hover:scale-105">
+                <img src={isDarkMode ? logoDark : logoLight} alt="Logo" className="w-full h-full object-cover" />
+              </div>
+              <span className="hidden sm:block text-lg sm:text-xl font-bold tracking-tighter transition-colors group-hover:text-brand-purple truncate sm:max-w-none">abubakar.khawaja</span>
+            </div>
+            <div className="hidden lg:flex items-center space-x-6 text-sm font-medium text-text-muted">
+              <a
+                href="https://www.linkedin.com/in/abu-bakar-khawaja-dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 group p-2 transition-colors text-text-muted hover:text-text-base"
+              >
+                <Linkedin size={16} className="group-hover:scale-110 transition-transform" />
+                <span className="font-bold tracking-tight">LinkedIn</span>
+              </a>
+
+              <a
+                href="https://github.com/abuabakar000"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 group p-2 transition-colors text-text-muted hover:text-text-base"
+              >
+                <Github size={16} className="group-hover:scale-110 transition-transform" />
+                <span className="font-bold tracking-tight">GitHub</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <div className="hidden sm:flex items-center space-x-2 bg-sidebar-bg px-3 py-1.5 rounded-full border border-border-base">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+              <span className="text-base font-bold text-text-base tracking-tight">{time}</span>
+            </div>
 
             <a
               href="https://github.com/abuabakar000"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 group p-2 transition-colors text-text-muted hover:text-text-base"
+              className="lg:hidden p-2 text-text-muted hover:text-text-base transition-colors"
             >
-              <Github size={16} className="group-hover:scale-110 transition-transform" />
-              <span className="font-bold tracking-tight">GitHub</span>
+              <Github size={18} />
             </a>
+
+            <a
+              href="https://www.linkedin.com/in/abu-bakar-khawaja-dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="lg:hidden p-2 text-text-muted hover:text-[#0077b5] transition-colors"
+            >
+              <Linkedin size={18} />
+            </a>
+
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="p-2 text-text-muted hover:text-text-base transition-colors"
+            >
+              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-2 text-text-muted hover:text-text-base transition-colors relative z-[110]"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
-        </div>
 
-        <div className="flex items-center space-x-2 sm:space-x-4">
-          <div className="hidden sm:flex items-center space-x-2 bg-sidebar-bg px-3 py-1.5 rounded-full border border-border-base">
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-            <span className="text-base font-bold text-text-base tracking-tight">{time}</span>
-          </div>
+        </nav>
 
-          <a
-            href="https://github.com/abuabakar000"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="lg:hidden p-2 text-text-muted hover:text-text-base transition-colors"
-          >
-            <Github size={18} />
-          </a>
-
-          <a
-            href="https://www.linkedin.com/in/abu-bakar-khawaja-dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="lg:hidden p-2 text-text-muted hover:text-[#0077b5] transition-colors"
-          >
-            <Linkedin size={18} />
-          </a>
-
-          <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="p-2 text-text-muted hover:text-text-base transition-colors"
-          >
-            {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-text-muted hover:text-text-base transition-colors relative z-[110]"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-      </nav>
-
-      {/* Mobile menu overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[105] bg-bg-base lg:hidden flex flex-col p-4 pt-6"
-          >
-            {/* Premium Top Bar inside Menu */}
-            <div className="flex items-center justify-between mb-8 px-2">
-              <div className="flex items-center gap-2">
-                <div className="w-5 h-5 flex items-center justify-center rotate-45 text-text-base">
-                  <Send size={16} />
-                </div>
-                <span className="text-base font-bold tracking-tight text-text-base">abubakar.khawaja</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-2.5 bg-sidebar-bg px-4 py-2 rounded-full border border-border-base shadow-lg shadow-black/10">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] animate-pulse" />
-                  <span className="text-xs font-black font-mono text-text-base uppercase tracking-tighter">
-                    {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).toLowerCase()}
-                  </span>
-                </div>
-
-                <div className="flex items-center bg-sidebar-bg/50 px-1 py-1 rounded-full border border-border-base/50">
-
-                  <button
-                    onClick={() => setIsDarkMode(!isDarkMode)}
-                    className="p-1.5 text-text-muted hover:text-text-base transition-all"
-                  >
-                    {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
-                  </button>
-                  <button
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-1.5 text-text-muted hover:text-brand-purple transition-all"
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Scrollable Navigation Area */}
-            <div className="flex-1 overflow-y-auto px-1 scrollbar-hide pb-10">
-              <div className="flex flex-col space-y-2.5">
-                {/* "Home" Section - Direct from Inspiration */}
-                <button
-                  onClick={() => { setActiveSection('Introduction'); setIsMobileMenuOpen(false); }}
-                  className={`flex items-center justify-between p-5 rounded-[24px] transition-all duration-300 border ${activeSection === 'Introduction'
-                    ? 'bg-sidebar-bg border-brand-purple/30 text-text-base shadow-xl shadow-black/10'
-                    : 'bg-sidebar-bg/30 border-border-base/40 text-text-base hover:bg-sidebar-bg/60'
-                    }`}
-                >
-                  <div className="flex items-center gap-4">
-                    <Home
-                      size={18}
-                      className={`transition-colors duration-300 ${activeSection === 'Introduction' ? 'text-brand-purple' : 'opacity-40'}`}
-                    />
-                    <span className="text-lg font-bold tracking-tight">Introduction</span>
+        {/* Mobile menu overlay */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20, opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed inset-0 z-[105] bg-bg-base lg:hidden flex flex-col p-4 pt-6"
+            >
+              {/* Premium Top Bar inside Menu */}
+              <div className="flex items-center justify-between mb-8 px-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 flex items-center justify-center rotate-45 text-text-base">
+                    <Send size={16} />
                   </div>
-                  <ChevronRight size={18} className="opacity-40" />
-                </button>
+                  <span className="text-base font-bold tracking-tight text-text-base">abubakar.khawaja</span>
+                </div>
 
-                {/* Other Sections */}
-                {sections.filter(s => s.id !== 'Introduction').map((section) => (
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5 bg-sidebar-bg px-4 py-2 rounded-full border border-border-base shadow-lg shadow-black/10">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] animate-pulse" />
+                    <span className="text-xs font-black font-mono text-text-base uppercase tracking-tighter">
+                      {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).toLowerCase()}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center bg-sidebar-bg/50 px-1 py-1 rounded-full border border-border-base/50">
+
+                    <button
+                      onClick={() => setIsDarkMode(!isDarkMode)}
+                      className="p-1.5 text-text-muted hover:text-text-base transition-all"
+                    >
+                      {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
+                    </button>
+                    <button
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="p-1.5 text-text-muted hover:text-brand-purple transition-all"
+                    >
+                      <X size={18} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Scrollable Navigation Area */}
+              <div className="flex-1 overflow-y-auto px-1 scrollbar-hide pb-10">
+                <div className="flex flex-col space-y-2.5">
+                  {/* "Home" Section - Direct from Inspiration */}
                   <button
-                    key={section.id}
-                    onClick={() => { setActiveSection(section.id); setIsMobileMenuOpen(false); }}
-                    className={`group flex items-center justify-between p-5 rounded-[24px] transition-all duration-300 border ${activeSection === section.id
-                      ? 'bg-sidebar-bg border-brand-purple/30 text-text-base shadow-xl shadow-brand-purple/5'
+                    onClick={() => { setActiveSection('Introduction'); setIsMobileMenuOpen(false); }}
+                    className={`flex items-center justify-between p-5 rounded-[24px] transition-all duration-300 border ${activeSection === 'Introduction'
+                      ? 'bg-sidebar-bg border-brand-purple/30 text-text-base shadow-xl shadow-black/10'
                       : 'bg-sidebar-bg/30 border-border-base/40 text-text-base hover:bg-sidebar-bg/60'
                       }`}
                   >
                     <div className="flex items-center gap-4">
-                      <section.icon
+                      <Home
                         size={18}
-                        className={`transition-colors duration-300 ${activeSection === section.id ? 'text-brand-purple' : 'opacity-40'}`}
+                        className={`transition-colors duration-300 ${activeSection === 'Introduction' ? 'text-brand-purple' : 'opacity-40'}`}
                       />
-                      <span className="text-lg font-bold tracking-tight">{section.id}</span>
+                      <span className="text-lg font-bold tracking-tight">Introduction</span>
                     </div>
-                    <ChevronRight
-                      size={18}
-                      className={`transition-all duration-300 ${activeSection === section.id ? 'opacity-100' : 'opacity-20 group-hover:opacity-60'}`}
-                    />
+                    <ChevronRight size={18} className="opacity-40" />
                   </button>
-                ))}
-              </div>
 
-              {/* Mobile Social Links */}
-              <div className="mt-12 flex items-center justify-center gap-4">
-                <a href="https://github.com/abuabakar000" target="_blank" rel="noopener noreferrer" className="w-14 h-14 bg-sidebar-bg rounded-2xl flex items-center justify-center text-text-muted hover:text-text-base border border-border-base hover:border-brand-purple/30 transition-all group overflow-hidden relative">
-                  <Github size={20} className="relative z-10 group-hover:scale-110 transition-transform" />
-                  <div className="absolute inset-0 bg-brand-purple/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </a>
-                <a href="https://www.linkedin.com/in/abu-bakar-khawaja-dev" target="_blank" rel="noopener noreferrer" className="w-14 h-14 bg-sidebar-bg rounded-2xl flex items-center justify-center text-text-muted hover:text-text-base border border-border-base hover:border-brand-purple/30 transition-all group overflow-hidden relative">
-                  <Linkedin size={20} className="relative z-10 group-hover:scale-110 transition-transform" />
-                  <div className="absolute inset-0 bg-brand-purple/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div className="pt-16 flex min-h-[calc(100vh-64px)] overflow-hidden">
-        {/* Left Sidebar */}
-        <aside className="w-64 fixed left-0 top-16 bottom-0 border-r border-border-base p-6 hidden lg:block overflow-y-auto bg-sidebar-bg scrollbar-hide transition-all duration-300">
-
-          <div className="space-y-1">
-            {sections.map((section) => (
-              <SidebarLink
-                key={section.id}
-                icon={section.icon}
-                label={section.id}
-                active={activeSection === section.id}
-                onClick={() => setActiveSection(section.id)}
-              />
-            ))}
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-border-base">
-            <div className="p-4 rounded-2xl border border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.3)] bg-transparent">
-              <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2">Current Status</p>
-              <p className="text-[13px] font-bold text-emerald-500 tracking-tight">Open for work</p>
-            </div>
-          </div>
-        </aside>
-
-        <main
-          ref={mainContentRef}
-          className="flex-1 lg:ml-64 p-4 sm:p-6 lg:p-8 xl:p-10 overflow-y-auto bg-bg-base transition-all duration-300"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeSection}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-4xl"
-            >
-              {loading ? (
-                <div className="h-96 flex items-center justify-center">
-                  <div className="w-8 h-8 border-2 border-brand-purple border-t-transparent rounded-full animate-spin" />
+                  {/* Other Sections */}
+                  {sections.filter(s => s.id !== 'Introduction').map((section) => (
+                    <button
+                      key={section.id}
+                      onClick={() => { setActiveSection(section.id); setIsMobileMenuOpen(false); }}
+                      className={`group flex items-center justify-between p-5 rounded-[24px] transition-all duration-300 border ${activeSection === section.id
+                        ? 'bg-sidebar-bg border-brand-purple/30 text-text-base shadow-xl shadow-brand-purple/5'
+                        : 'bg-sidebar-bg/30 border-border-base/40 text-text-base hover:bg-sidebar-bg/60'
+                        }`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <section.icon
+                          size={18}
+                          className={`transition-colors duration-300 ${activeSection === section.id ? 'text-brand-purple' : 'opacity-40'}`}
+                        />
+                        <span className="text-lg font-bold tracking-tight">{section.id}</span>
+                      </div>
+                      <ChevronRight
+                        size={18}
+                        className={`transition-all duration-300 ${activeSection === section.id ? 'opacity-100' : 'opacity-20 group-hover:opacity-60'}`}
+                      />
+                    </button>
+                  ))}
                 </div>
-              ) : renderContent()}
+
+                {/* Mobile Social Links */}
+                <div className="mt-12 flex items-center justify-center gap-4">
+                  <a href="https://github.com/abuabakar000" target="_blank" rel="noopener noreferrer" className="w-14 h-14 bg-sidebar-bg rounded-2xl flex items-center justify-center text-text-muted hover:text-text-base border border-border-base hover:border-brand-purple/30 transition-all group overflow-hidden relative">
+                    <Github size={20} className="relative z-10 group-hover:scale-110 transition-transform" />
+                    <div className="absolute inset-0 bg-brand-purple/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                  <a href="https://www.linkedin.com/in/abu-bakar-khawaja-dev" target="_blank" rel="noopener noreferrer" className="w-14 h-14 bg-sidebar-bg rounded-2xl flex items-center justify-center text-text-muted hover:text-text-base border border-border-base hover:border-brand-purple/30 transition-all group overflow-hidden relative">
+                    <Linkedin size={20} className="relative z-10 group-hover:scale-110 transition-transform" />
+                    <div className="absolute inset-0 bg-brand-purple/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                </div>
+              </div>
             </motion.div>
-          </AnimatePresence>
-
-          {/* Section Navigation */}
-          {!loading && (
-            <div className="mt-10 sm:mt-16 mb-8 flex items-center justify-between max-w-4xl">
-              {/* Previous Button */}
-              <div className="flex-1">
-                {sections.findIndex(s => s.id === activeSection) > 0 && (
-                  <button
-                    onClick={() => setActiveSection(sections[sections.findIndex(s => s.id === activeSection) - 1].id)}
-                    className="group flex items-center gap-2 sm:gap-3 text-text-muted hover:text-text-base transition-all px-2 sm:px-4 py-2 rounded-lg hover:bg-[#1a1a1a] border border-transparent hover:border-border-base transition-colors duration-200 cursor-pointer"
-                  >
-                    <ChevronLeft size={18} className="sm:size-5 transition-transform group-hover:-translate-x-1" />
-                    <span className="text-sm sm:text-lg font-bold text-text-base tracking-tight">
-                      {sections[sections.findIndex(s => s.id === activeSection) - 1].id}
-                    </span>
-                  </button>
-                )}
-              </div>
-
-              {/* Next Button */}
-              <div className="flex-1 flex justify-end">
-                {sections.findIndex(s => s.id === activeSection) < sections.length - 1 && (
-                  <button
-                    onClick={() => setActiveSection(sections[sections.findIndex(s => s.id === activeSection) + 1].id)}
-                    className="group flex items-center gap-2 sm:gap-3 text-text-muted hover:text-text-base transition-all px-2 sm:px-4 py-2 rounded-lg hover:bg-[#1a1a1a] border border-transparent hover:border-border-base transition-colors duration-200 cursor-pointer"
-                  >
-                    <span className="text-sm sm:text-lg font-bold text-text-base tracking-tight">
-                      {sections[sections.findIndex(s => s.id === activeSection) + 1].id}
-                    </span>
-                    <ChevronRight size={18} className="sm:size-5 transition-transform group-hover:translate-x-1" />
-                  </button>
-                )}
-              </div>
-            </div>
           )}
+        </AnimatePresence>
 
-          {/* Footer Space */}
-          <div className="mt-32 pt-12 border-t border-border-base flex justify-between items-center text-text-muted text-[11px] font-medium tracking-wide">
-            <span>© 2026 CODED WITH HEART</span>
-            <div className="flex items-center space-x-4">
-              <a href="https://github.com/abuabakar000" target="_blank" rel="noopener noreferrer" className="hover:text-text-base cursor-pointer transition-colors uppercase">GitHub</a>
-              <a href="https://www.linkedin.com/in/abu-bakar-khawaja-dev" target="_blank" rel="noopener noreferrer" className="hover:text-text-base cursor-pointer transition-colors uppercase">LinkedIn</a>
+        <div className="pt-16 flex min-h-[calc(100vh-64px)] overflow-hidden">
+          {/* Left Sidebar */}
+          <aside className="w-64 fixed left-0 top-16 bottom-0 border-r border-border-base p-6 hidden lg:block overflow-y-auto bg-sidebar-bg scrollbar-hide transition-all duration-300">
+
+            <div className="space-y-1">
+              {sections.map((section) => (
+                <SidebarLink
+                  key={section.id}
+                  icon={section.icon}
+                  label={section.id}
+                  active={activeSection === section.id}
+                  onClick={() => setActiveSection(section.id)}
+                />
+              ))}
             </div>
-          </div>
-        </main>
+
+            <div className="mt-8 pt-6 border-t border-border-base">
+              <div className="p-4 rounded-2xl border border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.3)] bg-transparent">
+                <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2">Current Status</p>
+                <p className="text-[13px] font-bold text-emerald-500 tracking-tight">Open for work</p>
+              </div>
+            </div>
+          </aside>
+
+          <main
+            ref={mainContentRef}
+            className="flex-1 lg:ml-64 p-4 sm:p-6 lg:p-8 xl:p-10 overflow-y-auto bg-bg-base transition-all duration-300"
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSection}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="max-w-4xl"
+              >
+                {loading ? (
+                  <div className="h-96 flex items-center justify-center">
+                    <div className="w-8 h-8 border-2 border-brand-purple border-t-transparent rounded-full animate-spin" />
+                  </div>
+                ) : renderContent()}
+
+                {/* Section Navigation - Inside motion.div to avoid flickering */}
+                {!loading && (
+                  <div className="mt-10 sm:mt-16 mb-8 flex items-center justify-between">
+                    {/* Previous Button */}
+                    <div className="flex-1">
+                      {sections.findIndex(s => s.id === activeSection) > 0 && (
+                        <button
+                          onClick={() => setActiveSection(sections[sections.findIndex(s => s.id === activeSection) - 1].id)}
+                          className="group flex items-center gap-2 sm:gap-3 text-text-muted hover:text-text-base transition-all px-2 sm:px-4 py-2 rounded-lg hover:bg-[#1a1a1a] border border-transparent hover:border-border-base transition-colors duration-200 cursor-pointer"
+                        >
+                          <ChevronLeft size={18} className="sm:size-5 transition-transform group-hover:-translate-x-1" />
+                          <span className="text-sm sm:text-lg font-bold text-text-base tracking-tight">
+                            {sections[sections.findIndex(s => s.id === activeSection) - 1].id}
+                          </span>
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Next Button */}
+                    <div className="flex-1 flex justify-end">
+                      {sections.findIndex(s => s.id === activeSection) < sections.length - 1 && (
+                        <button
+                          onClick={() => setActiveSection(sections[sections.findIndex(s => s.id === activeSection) + 1].id)}
+                          className="group flex items-center gap-2 sm:gap-3 text-text-muted hover:text-text-base transition-all px-2 sm:px-4 py-2 rounded-lg hover:bg-[#1a1a1a] border border-transparent hover:border-border-base transition-colors duration-200 cursor-pointer"
+                        >
+                          <span className="text-sm sm:text-lg font-bold text-text-base tracking-tight">
+                            {sections[sections.findIndex(s => s.id === activeSection) + 1].id}
+                          </span>
+                          <ChevronRight size={18} className="sm:size-5 transition-transform group-hover:translate-x-1" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Footer Space */}
+            <div className="mt-32 pt-12 border-t border-border-base flex justify-between items-center text-text-muted text-[11px] font-medium tracking-wide">
+              <span>© 2026 CODED WITH HEART</span>
+              <div className="flex items-center space-x-4">
+                <a href="https://github.com/abuabakar000" target="_blank" rel="noopener noreferrer" className="hover:text-text-base cursor-pointer transition-colors uppercase">GitHub</a>
+                <a href="https://www.linkedin.com/in/abu-bakar-khawaja-dev" target="_blank" rel="noopener noreferrer" className="hover:text-text-base cursor-pointer transition-colors uppercase">LinkedIn</a>
+              </div>
+            </div>
+          </main>
+        </div>
       </div>
-    </div>
+    </ReactLenis>
   );
 };
 
