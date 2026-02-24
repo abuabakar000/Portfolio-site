@@ -290,7 +290,7 @@ const App = () => {
               >
                 <a
                   href={resumeFile}
-                  download="Abu_Bakar_Resume.pdf"
+                  download="Abu Bakar Khawaja.pdf"
                   className="group relative bg-brand-purple text-white px-6 py-3 rounded-lg text-sm font-bold tracking-tight hover:brightness-110 transition-all flex items-center gap-2 overflow-hidden"
                 >
                   <Download size={16} className="relative z-10" />
