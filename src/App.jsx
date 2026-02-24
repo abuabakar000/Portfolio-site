@@ -955,7 +955,7 @@ const App = () => {
             <div className="mt-8 pt-6 border-t border-border-base">
               <div className="p-4 rounded-2xl border border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.3)] bg-transparent">
                 <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2">Current Status</p>
-                <p className="text-[13px] font-bold text-emerald-500 tracking-tight">Open for work</p>
+                <p className="text-[13px] font-bold text-emerald-500 tracking-tight">Open to work</p>
               </div>
             </div>
           </aside>
