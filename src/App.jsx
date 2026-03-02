@@ -36,10 +36,20 @@ import logoDark from './assets/logo-dark.png';
 import logoLight from './assets/logo-light.png';
 import devCollabImg from './assets/devcollab.jpg';
 import tgbImg from './assets/tgb.png';
+import resumeAiImg from './assets/resume-ai.png';
 import resumeFile from './assets/Resume.pdf';
 
 // Hardcoded Static Data
 const PROJECTS_DATA = [
+  {
+    id: 0,
+    title: "Resume AI",
+    description: "AI-powered resume builder using advanced language models to generate professional resumes.",
+    techStack: ["React", "Tailwind CSS", "HuggingFace API", "Node.js"],
+    category: "Full Stack",
+    image: resumeAiImg,
+    liveLink: "https://resume-ai-web-delta.vercel.app/"
+  },
   {
     id: 1,
     title: "DevCollab",
@@ -52,7 +62,7 @@ const PROJECTS_DATA = [
   {
     id: 2,
     title: "The Good Burger",
-    description: "A modern restaurant web application that showcases menu items, enables online ordering, and delivers a smooth, responsive user experience across all devices.",
+    description: "A modern restaurant app showcasing menus, enabling online ordering, delivering a responsive experience.",
     techStack: ["React", "Tailwind CSS", "Vite", "Framer Motion"],
     category: "Web App",
     image: tgbImg,
@@ -158,7 +168,12 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [projectsIndex, setProjectsIndex] = useState(0);
   const [time, setTime] = useState(new Date().toLocaleTimeString([], { hour12: false }));
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check localStorage or document class (set by our script in index.html)
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) return savedTheme === 'dark';
+    return document.documentElement.classList.contains('dark');
+  });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -224,8 +239,10 @@ const App = () => {
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
   }, [isDarkMode]);
 
@@ -366,13 +383,19 @@ const App = () => {
               className="space-y-6 max-w-3xl"
             >
               <p className="text-lg text-text-base leading-relaxed">
-                I’m a <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">Software Engineer</span> and <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">MERN Stack Developer</span> specializing in building <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">production-grade and scalable web applications</span>. Using MongoDB, Express, React, and Node.js, I develop high-performance platforms designed to handle real users, real traffic, and complex business logic — not tutorial-level builds.
+                I design and build <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">scalable, production-grade web applications</span> with <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">AI integrated as a strategic capability</span>. As a <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">MERN Stack Engineer</span>, I architect full-stack systems engineered to handle real users, complex business logic, and sustained growth.
               </p>
               <p className="text-lg text-text-base leading-relaxed">
-                With a strong foundation in <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">backend architecture</span>, API design, authentication systems, and database optimization, I focus on writing <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">clean, maintainable code</span> that scales. I build live applications with real-time features, secure data handling, and infrastructure-ready server logic built for growth.
+                My expertise is rooted in <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">backend engineering</span>. I develop <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">secure authentication systems</span> (JWT, RBAC, refresh token flows), well-structured APIs, and database architectures optimized for <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">performance, consistency, and scalability</span>. I approach development with a systems mindset — considering data flow, access control, failure handling, and long-term maintainability from the start.
               </p>
               <p className="text-lg text-text-base leading-relaxed">
-                I approach every project with an <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">engineering mindset</span> — prioritizing scalability, performance, and long-term reliability from day one. My objective is simple: deliver robust software that performs under pressure and creates <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">measurable impact</span>.
+                In addition to core engineering, I integrate <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">AI-driven functionality</span> using modern language models and external AI services. These capabilities are implemented with clear logic, controlled outputs, and infrastructure designed for <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">production environments</span> — not experimental prototypes.
+              </p>
+              <p className="text-lg text-text-base leading-relaxed">
+                On the frontend, I build responsive React applications that align cleanly with backend architecture, ensuring performance and structural consistency across the stack.
+              </p>
+              <p className="text-lg text-text-base leading-relaxed">
+                Every project I take on is built with discipline, scalability, and reliability as foundational principles. I deliver software engineered to perform under pressure, scale responsibly, and provide <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">measurable, long-term value</span>.
               </p>
             </motion.div>
           </div>
@@ -572,7 +595,7 @@ const App = () => {
                   className="group p-6 bg-sidebar-bg/40 border border-border-base rounded-3xl transition-all duration-300 hover:border-brand-purple/50 hover:bg-sidebar-bg/60"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-brand-purple/10 flex items-center justify-center text-brand-purple">
+                    <div className="w-12 h-12 flex items-center justify-center text-brand-purple">
                       <Mail size={24} />
                     </div>
                     <div>
@@ -696,7 +719,7 @@ const App = () => {
                   className="group p-6 bg-sidebar-bg/40 border border-border-base rounded-3xl transition-all duration-300 hover:border-emerald-500/50 hover:bg-sidebar-bg/60"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                    <div className="w-12 h-12 flex items-center justify-center text-emerald-500">
                       <Monitor size={24} />
                     </div>
                     <div>
@@ -938,8 +961,7 @@ const App = () => {
 
         <div className="pt-16 flex min-h-[calc(100vh-64px)] overflow-hidden">
           {/* Left Sidebar */}
-          <aside className="w-64 fixed left-0 top-16 bottom-0 border-r border-border-base p-6 hidden lg:block overflow-y-auto bg-sidebar-bg scrollbar-hide transition-all duration-300">
-
+          <aside className="w-64 fixed left-0 top-16 bottom-0 border-r border-border-base px-6 pt-16 pb-10 hidden lg:block overflow-y-auto bg-sidebar-bg scrollbar-hide transition-all duration-300">
             <div className="space-y-1">
               {sections.map((section) => (
                 <SidebarLink
