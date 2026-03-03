@@ -97,7 +97,7 @@ const EXPERIENCE_DATA = [
   },
   {
     id: 3,
-    company: "Saffron Labs",
+    company: "Saffran Labs",
     role: "Trainee (Frontend Intern)",
     duration: "2024",
     description: [
@@ -109,10 +109,10 @@ const EXPERIENCE_DATA = [
   }
 ];
 
-const SidebarLink = ({ icon: Icon, label, active, onClick }) => (
+const SidebarLink = ({ icon: Icon, label, active, onClick, index }) => (
   <button
     onClick={onClick}
-    className={`group relative w-full flex items-center px-4 py-2.5 rounded-xl transition-all duration-300 overflow-hidden ${active
+    className={`group relative w-full flex items-center px-4 py-2.5 rounded-lg transition-all duration-300 overflow-hidden ${active
       ? 'text-brand-purple'
       : 'text-text-muted hover:text-text-base'
       }`}
@@ -121,7 +121,7 @@ const SidebarLink = ({ icon: Icon, label, active, onClick }) => (
     {active && (
       <motion.div
         layoutId="sidebar-active"
-        className="absolute inset-0 bg-sidebar-bg/60"
+        className="absolute inset-0 bg-brand-purple/5 border-l-2 border-brand-purple"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
@@ -130,21 +130,20 @@ const SidebarLink = ({ icon: Icon, label, active, onClick }) => (
 
     {/* Content */}
     <div className="relative z-10 flex items-center w-full">
-      <div className="flex items-center gap-2">
-        {/* Coding Pointer */}
-        <span className={`font-mono text-sm font-bold transition-all duration-300 ${active ? 'text-brand-purple opacity-100' : 'opacity-0 -translate-x-2'
-          }`}>
-          //
+      <div className="flex items-center gap-3">
+        {/* Line Number */}
+        <span className="font-mono text-[10px] opacity-65 group-hover:opacity-100 transition-opacity">
+          {(index + 1).toString().padStart(3, '0')}
         </span>
 
         <Icon
-          size={16}
-          className={`transition-all duration-300 ${active ? 'text-brand-purple scale-110 uppercase' : 'group-hover:scale-110'
+          size={14}
+          className={`transition-all duration-300 ${active ? 'text-brand-purple scale-110' : 'group-hover:scale-110'
             }`}
         />
       </div>
 
-      <span className={`ml-3 text-[13px] font-bold tracking-tight transition-all duration-300 ${active ? 'translate-x-[2px] italic' : ''
+      <span className={`ml-3 text-[12px] font-mono font-bold tracking-tighter transition-all duration-300 uppercase ${active ? 'translate-x-[2px]' : ''
         }`}>
         {label}
       </span>
@@ -154,7 +153,7 @@ const SidebarLink = ({ icon: Icon, label, active, onClick }) => (
         <motion.div
           animate={{ opacity: [1, 0, 1] }}
           transition={{ duration: 1, repeat: Infinity }}
-          className="ml-1.5 w-[6px] h-[14px] bg-brand-purple/40 rounded-[1px]"
+          className="ml-2 w-[4px] h-[12px] bg-brand-purple/40"
         />
       )}
     </div>
@@ -276,8 +275,9 @@ const App = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="text-4xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-base leading-[1.1]"
+                  className="text-4xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-base leading-[1.1] font-mono"
                 >
+                  <span className="text-brand-purple/70 dark:text-brand-purple/60 mr-2">$</span>
                   Abu Bakar Khawaja
                 </motion.h1>
                 <motion.h2
@@ -308,17 +308,20 @@ const App = () => {
                 <a
                   href={resumeFile}
                   download="Abu Bakar Khawaja.pdf"
-                  className="group relative bg-brand-purple text-white px-6 py-3 rounded-lg text-sm font-bold tracking-tight hover:brightness-110 transition-all flex items-center gap-2 overflow-hidden"
+                  className="group relative bg-brand-purple text-white px-8 py-3.5 clip-corner btn-tech-glow text-xs font-mono font-bold tracking-widest hover:brightness-110 transition-all flex items-center gap-3 overflow-hidden"
                 >
-                  <Download size={16} className="relative z-10" />
-                  <span className="relative z-10">Get Resume</span>
-                  <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                  <span className="opacity-50">[</span>
+                  <Download size={14} className="relative z-10" />
+                  <span className="relative z-10">GET_RESUME</span>
+                  <span className="opacity-50">]</span>
+                  <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </a>
                 <button
                   onClick={() => setActiveSection('Contact')}
-                  className="group bg-sidebar-bg/50 border border-border-base text-text-muted hover:text-text-base hover:bg-[#1a1a1a] hover:border-border-base px-6 py-3 rounded-lg text-sm font-bold tracking-tight transition-all duration-200"
+                  className="group bg-sidebar-bg/50 border border-border-base text-text-muted hover:text-text-base hover:bg-brand-purple/5 hover:border-brand-purple/30 px-8 py-3.5 clip-corner text-xs font-mono font-bold tracking-widest transition-all duration-300 flex items-center gap-2"
                 >
-                  Send Email
+                  <span className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-brand-purple">{'>'}</span>
+                  SEND_MESSAGE
                 </button>
               </motion.div>
             </div>
@@ -347,8 +350,8 @@ const App = () => {
                 </div>
 
                 {/* Large Overlapping Brackets (scaled for mobile) */}
-                <div className="absolute -top-6 -left-6 sm:-top-12 sm:-left-12 text-brand-purple/60 dark:text-brand-purple/20 font-mono text-[80px] sm:text-[160px] font-thin select-none pointer-events-none group-hover:opacity-40 transition-opacity z-10">{'<'}</div>
-                <div className="absolute -bottom-12 -right-4 sm:-bottom-20 sm:-right-8 text-brand-purple/60 dark:text-brand-purple/20 font-mono text-[80px] sm:text-[160px] font-thin select-none pointer-events-none group-hover:opacity-40 transition-opacity z-10">{'>'}</div>
+                <div className="absolute -top-6 -left-6 sm:-top-12 sm:-left-12 text-brand-purple/70 dark:text-brand-purple/60 font-mono text-[80px] sm:text-[160px] font-thin select-none pointer-events-none group-hover:opacity-40 transition-opacity z-10">{'<'}</div>
+                <div className="absolute -bottom-12 -right-4 sm:-bottom-20 sm:-right-8 text-brand-purple/70 dark:text-brand-purple/60 font-mono text-[80px] sm:text-[160px] font-thin select-none pointer-events-none group-hover:opacity-40 transition-opacity z-10">{'>'}</div>
               </div>
             </motion.div>
           </div>
@@ -362,9 +365,10 @@ const App = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-base"
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-base font-mono"
               >
-                About Abu Bakar Khawaja
+                <span className="text-brand-purple/70 dark:text-brand-purple/60 mr-2">{'>'}</span>
+                About Me
               </motion.h1>
               <motion.h2
                 initial={{ opacity: 0, x: -20 }}
@@ -412,8 +416,9 @@ const App = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-base tracking-tight"
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-base tracking-tight font-mono"
                 >
+                  <span className="text-brand-purple/70 dark:text-brand-purple/60 mr-2">{'>'}</span>
                   Featured Projects
                 </motion.h1>
                 <motion.p
@@ -508,8 +513,9 @@ const App = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-base tracking-tight"
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-base tracking-tight font-mono"
               >
+                <span className="text-brand-purple/70 dark:text-brand-purple/60 mr-2">{'>'}</span>
                 Technical Arsenal
               </motion.h1>
               <motion.p
@@ -536,9 +542,10 @@ const App = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-base tracking-tight"
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-base tracking-tight font-mono"
               >
-                Professional Experience
+                <span className="text-brand-purple/70 dark:text-brand-purple/60 mr-2">{'>'}</span>
+                Experience
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0, x: -20 }}
@@ -570,8 +577,9 @@ const App = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-base tracking-tight"
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-base tracking-tight font-mono"
               >
+                <span className="text-brand-purple/70 dark:text-brand-purple/60 mr-2">{'>'}</span>
                 Let&apos;s Build Something <span className="text-brand-purple">Real.</span>
               </motion.h1>
               <motion.p
@@ -640,9 +648,9 @@ const App = () => {
                         </div>
                         <button
                           onClick={() => setFormStatus('idle')}
-                          className="text-sm font-bold text-brand-purple hover:underline"
+                          className="font-mono text-xs font-bold text-brand-purple hover:underline tracking-widest"
                         >
-                          Send another message
+                          [ TRANSMIT_NEW_STATUS ]
                         </button>
                       </motion.div>
                     ) : (
@@ -688,18 +696,20 @@ const App = () => {
                         <button
                           type="submit"
                           disabled={formStatus === 'sending'}
-                          className={`group w-full ${formStatus === 'error' ? 'bg-red-500' : 'bg-brand-purple'} hover:brightness-110 text-white text-sm font-bold tracking-tight h-16 rounded-2xl flex items-center justify-center space-x-3 transition-all relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed`}
+                          className={`group w-full ${formStatus === 'error' ? 'bg-red-500' : 'bg-brand-purple'} hover:brightness-110 text-white text-xs font-mono font-bold tracking-[0.2em] h-16 clip-corner btn-tech-glow flex items-center justify-center space-x-3 transition-all relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed`}
                         >
-                          <span className="relative z-10 flex items-center gap-2">
+                          <span className="relative z-10 flex items-center gap-3">
                             {formStatus === 'sending' ? (
                               <>
                                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                <span>Dispatching...</span>
+                                <span>INITIALIZING_TRANSFER...</span>
                               </>
                             ) : (
                               <>
-                                <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                <span>Transmit Message</span>
+                                <span className="opacity-50">[</span>
+                                <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                <span>TRANSMIT_DATA</span>
+                                <span className="opacity-50">]</span>
                               </>
                             )}
                           </span>
@@ -775,6 +785,7 @@ const App = () => {
   return (
     <ReactLenis root>
       <div className="min-h-screen bg-bg-base text-text-base selection:bg-brand-purple/30 selection:text-brand-purple font-sans tracking-tight transition-colors duration-300">
+        <div className="scanline"></div>
         {/* Top Navbar */}
         <nav className="fixed top-0 left-0 right-0 h-16 border-b border-border-base bg-bg-base/80 backdrop-blur-xl z-[100] flex items-center justify-between px-6 lg:px-12 transition-colors duration-300">
           <div className="flex items-center space-x-12">
@@ -858,7 +869,7 @@ const App = () => {
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20, opacity: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="fixed inset-0 z-[105] bg-bg-base lg:hidden flex flex-col p-4 pt-6"
             >
@@ -872,11 +883,9 @@ const App = () => {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-2.5 bg-sidebar-bg px-4 py-2 rounded-full border border-border-base shadow-lg shadow-black/10">
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] animate-pulse" />
-                    <span className="text-xs font-black font-mono text-text-base uppercase tracking-tighter">
-                      {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).toLowerCase()}
-                    </span>
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                    <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">Open to Work</span>
                   </div>
 
                   <div className="flex items-center bg-sidebar-bg/50 px-1 py-1 rounded-full border border-border-base/50">
@@ -961,11 +970,17 @@ const App = () => {
 
         <div className="pt-16 flex min-h-[calc(100vh-64px)] overflow-hidden">
           {/* Left Sidebar */}
-          <aside className="w-64 fixed left-0 top-16 bottom-0 border-r border-border-base px-6 pt-16 pb-10 hidden lg:block overflow-y-auto bg-sidebar-bg scrollbar-hide transition-all duration-300">
-            <div className="space-y-1">
-              {sections.map((section) => (
+          <aside className="w-64 fixed left-0 top-16 bottom-0 border-r border-border-base px-6 pt-12 pb-10 hidden lg:flex flex-col overflow-y-auto bg-sidebar-bg scrollbar-hide transition-all duration-300">
+            <div className="mb-6 flex items-center gap-2 px-4 py-2 bg-text-base/5 rounded border border-border-base/50">
+              <Terminal size={12} className="text-brand-purple" />
+              <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-text-muted">system_root</span>
+            </div>
+
+            <div className="space-y-0.5">
+              {sections.map((section, index) => (
                 <SidebarLink
                   key={section.id}
+                  index={index}
                   icon={section.icon}
                   label={section.id}
                   active={activeSection === section.id}
@@ -974,10 +989,19 @@ const App = () => {
               ))}
             </div>
 
-            <div className="mt-8 pt-6 border-t border-border-base">
-              <div className="p-4 rounded-2xl border border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.3)] bg-transparent">
-                <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2">Current Status</p>
-                <p className="text-[13px] font-bold text-emerald-500 tracking-tight">Open to work</p>
+            <div className="mt-auto pt-6 border-t border-border-base space-y-4">
+              <div className="flex items-center justify-between px-4 py-3 bg-emerald-500/5 border border-emerald-500/20 rounded-xl group transition-all duration-300 hover:bg-emerald-500/10 mb-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                  <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-[0.15em]">Open to Work</span>
+                </div>
+              </div>
+
+              <div className="px-1 py-1 flex items-center justify-between opacity-30 select-none">
+                <span className="text-[9px] font-mono text-text-muted uppercase tracking-[0.4em]">Ready_Status</span>
+                <div className="flex gap-1.5 text-brand-purple/40">
+                  <Terminal size={10} />
+                </div>
               </div>
             </div>
           </aside>
@@ -1003,17 +1027,17 @@ const App = () => {
 
                 {/* Section Navigation - Inside motion.div to avoid flickering */}
                 {!loading && (
-                  <div className="mt-10 sm:mt-16 mb-8 flex items-center justify-between">
+                  <div className="mt-16 sm:mt-24 mb-12 flex items-center justify-between gap-6">
                     {/* Previous Button */}
                     <div className="flex-1">
                       {sections.findIndex(s => s.id === activeSection) > 0 && (
                         <button
                           onClick={() => setActiveSection(sections[sections.findIndex(s => s.id === activeSection) - 1].id)}
-                          className="group flex items-center gap-2 sm:gap-3 text-text-muted hover:text-text-base transition-all px-2 sm:px-4 py-2 rounded-lg hover:bg-[#1a1a1a] border border-transparent hover:border-border-base transition-colors duration-200 cursor-pointer"
+                          className="group flex items-center gap-3 px-6 py-4 bg-sidebar-bg/40 border border-border-base/50 rounded-lg clip-corner btn-tech-glow hover:border-brand-purple/30 hover:bg-brand-purple/5 transition-all cursor-pointer"
                         >
-                          <ChevronLeft size={18} className="sm:size-5 transition-transform group-hover:-translate-x-1" />
-                          <span className="text-sm sm:text-lg font-bold text-text-base tracking-tight">
-                            {sections[sections.findIndex(s => s.id === activeSection) - 1].id}
+                          <ChevronLeft size={18} className="text-brand-purple group-hover:-translate-x-1 transition-transform" />
+                          <span className="text-sm sm:text-base font-mono font-bold text-text-base tracking-tighter uppercase whitespace-nowrap">
+                            [ {sections[sections.findIndex(s => s.id === activeSection) - 1].id} ]
                           </span>
                         </button>
                       )}
@@ -1024,12 +1048,12 @@ const App = () => {
                       {sections.findIndex(s => s.id === activeSection) < sections.length - 1 && (
                         <button
                           onClick={() => setActiveSection(sections[sections.findIndex(s => s.id === activeSection) + 1].id)}
-                          className="group flex items-center gap-2 sm:gap-3 text-text-muted hover:text-text-base transition-all px-2 sm:px-4 py-2 rounded-lg hover:bg-[#1a1a1a] border border-transparent hover:border-border-base transition-colors duration-200 cursor-pointer"
+                          className="group flex items-center gap-3 px-6 py-4 bg-sidebar-bg/40 border border-border-base/50 rounded-lg clip-corner-reverse btn-tech-glow hover:border-brand-purple/30 hover:bg-brand-purple/5 transition-all cursor-pointer"
                         >
-                          <span className="text-sm sm:text-lg font-bold text-text-base tracking-tight">
-                            {sections[sections.findIndex(s => s.id === activeSection) + 1].id}
+                          <span className="text-sm sm:text-base font-mono font-bold text-text-base tracking-tighter uppercase whitespace-nowrap">
+                            [ {sections[sections.findIndex(s => s.id === activeSection) + 1].id} ]
                           </span>
-                          <ChevronRight size={18} className="sm:size-5 transition-transform group-hover:translate-x-1" />
+                          <ChevronRight size={18} className="text-brand-purple group-hover:translate-x-1 transition-transform" />
                         </button>
                       )}
                     </div>

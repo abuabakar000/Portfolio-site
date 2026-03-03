@@ -29,7 +29,8 @@ const ProjectCard = ({ project }) => {
             </div>
 
             {/* Project Image/Preview */}
-            <div className="relative aspect-[16/10] overflow-hidden bg-text-base/[0.05]">
+            <div className="relative aspect-[16/10] overflow-hidden bg-text-base/[0.05] border-y border-border-base/50">
+                <div className="absolute inset-0 z-10 pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
                 {project.liveLink ? (
                     <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
                         {project.image ? (
@@ -67,9 +68,10 @@ const ProjectCard = ({ project }) => {
                             href={project.liveLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-3 bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-xl"
+                            className="p-3 bg-white text-black clip-corner font-mono text-[10px] font-bold hover:scale-110 active:scale-95 transition-all shadow-xl flex items-center gap-2"
                         >
-                            <ExternalLink size={20} />
+                            <ExternalLink size={16} />
+                            LIVE
                         </a>
                     )}
                     {project.githubLink && (
@@ -77,9 +79,10 @@ const ProjectCard = ({ project }) => {
                             href={project.githubLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-3 bg-black/80 text-white rounded-xl hover:scale-110 active:scale-95 border border-white/10 transition-all shadow-xl"
+                            className="p-3 bg-black/80 text-white clip-corner font-mono text-[10px] font-bold hover:scale-110 active:scale-95 border border-white/10 transition-all shadow-xl flex items-center gap-2"
                         >
-                            <Github size={20} />
+                            <Github size={16} />
+                            CODE
                         </a>
                     )}
                 </div>
