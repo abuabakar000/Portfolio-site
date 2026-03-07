@@ -32,8 +32,9 @@ const ExperienceItem = ({ item }) => {
                     </span>
                 </div>
 
-                <div className="bg-text-base/[0.02] border border-border-base/50 rounded-lg p-5 group hover:border-brand-purple/30 transition-colors">
-                    <ul className="space-y-3">
+                <div className="bg-text-base/[0.03] backdrop-blur-xl border border-border-base/50 rounded-2xl p-6 group hover:border-brand-purple/40 hover:bg-text-base/[0.05] hover:shadow-[0_0_30px_rgba(139,92,246,0.1)] transition-all duration-300 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    <ul className="space-y-4 relative z-10">
                         {item.description.map((bullet, i) => (
                             <li key={i} className="text-text-base text-sm sm:text-base flex items-start space-x-3">
                                 <span className="mt-1.5 text-brand-purple opacity-40 font-mono text-xs">commit</span>

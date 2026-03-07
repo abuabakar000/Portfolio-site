@@ -8,10 +8,10 @@ const ProjectCard = ({ project }) => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="group relative bg-sidebar-bg/40 backdrop-blur-xl border border-border-base/50 rounded-2xl overflow-hidden transition-all duration-500 hover:border-brand-purple/40 shadow-sm"
+            className="group relative bg-sidebar-bg/60 backdrop-blur-2xl border border-border-base/50 rounded-[28px] overflow-hidden transition-all duration-500 hover:border-brand-purple/60 hover:shadow-[0_0_40px_rgba(139,92,246,0.15)]"
         >
             {/* Window Header */}
-            <div className="flex items-center justify-between px-5 py-3 border-b border-border-base/50 bg-text-base/[0.02]">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border-base/50 bg-text-base/[0.03]">
                 <div className="flex items-center gap-1.5">
                     <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]/80" />
                     <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]/80" />
@@ -100,12 +100,12 @@ const ProjectCard = ({ project }) => {
 
                     {project.liveLink ? (
                         <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="block group/title">
-                            <h3 className="text-lg sm:text-xl font-bold text-text-base group-hover/title:text-transparent group-hover/title:bg-clip-text group-hover/title:bg-gradient-to-r group-hover/title:from-violet-500 group-hover/title:to-indigo-500 transition-all duration-300">
+                            <h3 className="text-lg sm:text-xl font-bold text-text-base group-hover/title:text-transparent group-hover/title:bg-clip-text group-hover/title:bg-gradient-to-r group-hover/title:from-purple-400 group-hover/title:via-pink-500 group-hover/title:to-indigo-500 transition-all duration-300">
                                 {project.title}
                             </h3>
                         </a>
                     ) : (
-                        <h3 className="text-lg sm:text-xl font-bold text-text-base group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-violet-500 group-hover:to-indigo-500 transition-all duration-300">
+                        <h3 className="text-lg sm:text-xl font-bold text-text-base group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:via-pink-500 group-hover:to-indigo-500 transition-all duration-300">
                             {project.title}
                         </h3>
                     )}
@@ -126,7 +126,8 @@ const ProjectCard = ({ project }) => {
             </div>
 
             {/* Bottom Glow Decoration */}
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-purple/20 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-1000" />
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-brand-purple/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 blur-[2px]" />
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-purple to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-1000" />
         </motion.div>
     );
 };

@@ -34,15 +34,25 @@ import SkillsSphere from './components/SkillsSphere';
 import profilePic from './assets/profile.png';
 import logoDark from './assets/logo-dark.png';
 import logoLight from './assets/logo-light.png';
-import devCollabImg from './assets/devcollab.jpg';
+import devCollabImg from './assets/devcollab.png';
 import tgbImg from './assets/tgb.png';
-import resumeAiImg from './assets/resume-ai.png';
+import resumeAiImg from './assets/resume.ai.png';
+import saasForgeImg from './assets/saasforge.png';
 import resumeFile from './assets/Resume.pdf';
 
 // Hardcoded Static Data
 const PROJECTS_DATA = [
   {
     id: 0,
+    title: "SaasForge",
+    description: "Full-stack SaaS starter with auth, Stripe billing, RBAC, and analytics dashboard.",
+    techStack: ["Next.js", "React", "Node.js", "Stripe"],
+    category: "SaaS",
+    image: saasForgeImg,
+    liveLink: "#"
+  },
+  {
+    id: 1,
     title: "Resume AI",
     description: "AI-powered resume builder using advanced language models to generate professional resumes.",
     techStack: ["React", "Tailwind CSS", "HuggingFace API", "Node.js"],
@@ -51,7 +61,7 @@ const PROJECTS_DATA = [
     liveLink: "https://resume-ai-web-delta.vercel.app/"
   },
   {
-    id: 1,
+    id: 2,
     title: "DevCollab",
     description: "A full-stack platform where developers can share projects, connect, and collaborate in real time.",
     techStack: ["MongoDB", "Express", "React", "Node.js", "Socket.io"],
@@ -60,7 +70,7 @@ const PROJECTS_DATA = [
     liveLink: "https://dev-collab-frontend-alpha.vercel.app/"
   },
   {
-    id: 2,
+    id: 3,
     title: "The Good Burger",
     description: "A modern restaurant app showcasing menus, enabling online ordering, delivering a responsive experience.",
     techStack: ["React", "Tailwind CSS", "Vite", "Framer Motion"],
@@ -233,6 +243,7 @@ const App = () => {
 
   useEffect(() => {
     setIsMobileMenuOpen(false); // Close mobile menu on section change
+    setProjectsIndex(0); // Reset projects index on section change
   }, [activeSection]);
 
   useEffect(() => {
@@ -270,21 +281,21 @@ const App = () => {
           <div className="flex flex-col-reverse lg:flex-row lg:items-center gap-10 lg:gap-20 items-center">
             {/* Left Column: Text Content */}
             <div className="flex-1 space-y-6 text-left">
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <motion.h1
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="text-4xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-base leading-[1.1] font-mono"
+                  className="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-text-base leading-[1.1] font-sans"
                 >
-                  <span className="text-brand-purple/70 dark:text-brand-purple/60 mr-2">$</span>
+                  <span className="text-brand-purple/70 dark:text-brand-purple/80 mr-2 drop-shadow-[0_0_15px_rgba(139,92,246,0.5)]">$</span>
                   Abu Bakar Khawaja
                 </motion.h1>
                 <motion.h2
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1, duration: 0.5 }}
-                  className="text-xl sm:text-2xl lg:text-3xl font-bold text-text-muted leading-tight"
+                  className="text-xl sm:text-2xl lg:text-3xl font-semibold bg-gradient-to-r from-text-muted to-text-base bg-clip-text text-transparent leading-tight"
                 >
                   Less talk. More building.
                 </motion.h2>
@@ -294,9 +305,9 @@ const App = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1, duration: 0.5 }}
-                className="text-lg text-text-base leading-relaxed max-w-2xl"
+                className="text-lg text-text-muted leading-relaxed max-w-2xl font-light"
               >
-                I am a <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">Software Engineer</span> specializing in <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">full-stack development</span>, building scalable and high-performance digital products. I design and architect fast, reliable web applications using technologies such as <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">Next.js, React, Tailwind CSS, Node.js, Express, and MongoDB.</span> With a strong focus on backend architecture, security, and system design, I deliver clean, efficient, <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">production-ready software</span> built for real-world impact.
+                I help startups and businesses turn ideas into <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">fast, scalable web products</span>. From <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">SaaS platforms and AI-powered applications</span> to secure backend APIs and authentication systems, I design and build complete solutions using <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">React, Next.js, Node.js, and MongoDB.</span> My focus is performance, clean architecture, and reliability—delivering <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">production-ready software</span> that helps businesses launch faster, operate efficiently, and scale confidently as their products grow.
               </motion.p>
 
               <motion.div
@@ -308,7 +319,7 @@ const App = () => {
                 <a
                   href={resumeFile}
                   download="Abu Bakar Khawaja.pdf"
-                  className="group relative bg-brand-purple text-white px-8 py-3.5 clip-corner btn-tech-glow text-xs font-mono font-bold tracking-widest hover:brightness-110 transition-all flex items-center gap-3 overflow-hidden"
+                  className="group relative bg-brand-purple text-white px-8 py-3.5 clip-corner btn-tech-glow text-xs font-mono font-bold tracking-widest hover:brightness-125 hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] transition-all flex items-center gap-3 overflow-hidden shadow-[0_0_15px_rgba(139,92,246,0.3)]"
                 >
                   <span className="opacity-50">[</span>
                   <Download size={14} className="relative z-10" />
@@ -318,7 +329,7 @@ const App = () => {
                 </a>
                 <button
                   onClick={() => setActiveSection('Contact')}
-                  className="group bg-sidebar-bg/50 border border-border-base text-text-muted hover:text-text-base hover:bg-brand-purple/5 hover:border-brand-purple/30 px-8 py-3.5 clip-corner text-xs font-mono font-bold tracking-widest transition-all duration-300 flex items-center gap-2"
+                  className="group bg-sidebar-bg/80 backdrop-blur-md border border-text-muted/30 text-text-base hover:text-white hover:bg-brand-purple/20 hover:border-brand-purple/60 px-8 py-3.5 clip-corner text-xs font-mono font-bold tracking-widest transition-all duration-300 flex items-center gap-2 hover:shadow-[0_0_25px_rgba(139,92,246,0.25)] shadow-sm"
                 >
                   <span className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-brand-purple">{'>'}</span>
                   SEND_MESSAGE
@@ -387,19 +398,19 @@ const App = () => {
               className="space-y-6 max-w-3xl"
             >
               <p className="text-lg text-text-base leading-relaxed">
-                I design and build <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">scalable, production-grade web applications</span> with <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">AI integrated as a strategic capability</span>. As a <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">MERN Stack Engineer</span>, I architect full-stack systems engineered to handle real users, complex business logic, and sustained growth.
+                I design and build <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">scalable, production-grade web applications</span> with <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">AI integrated as a strategic capability</span>. As a <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">MERN Stack Engineer</span>, I architect full-stack systems engineered to handle real users, complex business logic, and sustained growth.
               </p>
               <p className="text-lg text-text-base leading-relaxed">
-                My expertise is rooted in <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">backend engineering</span>. I develop <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">secure authentication systems</span> (JWT, RBAC, refresh token flows), well-structured APIs, and database architectures optimized for <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">performance, consistency, and scalability</span>. I approach development with a systems mindset — considering data flow, access control, failure handling, and long-term maintainability from the start.
+                My expertise is rooted in <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">backend engineering</span>. I develop <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">secure authentication systems</span> (JWT, RBAC, refresh token flows), well-structured APIs, and database architectures optimized for <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">performance, consistency, and scalability</span>. I approach development with a systems mindset — considering data flow, access control, failure handling, and long-term maintainability from the start.
               </p>
               <p className="text-lg text-text-base leading-relaxed">
-                In addition to core engineering, I integrate <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">AI-driven functionality</span> using modern language models and external AI services. These capabilities are implemented with clear logic, controlled outputs, and infrastructure designed for <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">production environments</span> — not experimental prototypes.
+                In addition to core engineering, I integrate <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">AI-driven functionality</span> using modern language models and external AI services. These capabilities are implemented with clear logic, controlled outputs, and infrastructure designed for <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">production environments</span> — not experimental prototypes.
               </p>
               <p className="text-lg text-text-base leading-relaxed">
                 On the frontend, I build responsive React applications that align cleanly with backend architecture, ensuring performance and structural consistency across the stack.
               </p>
               <p className="text-lg text-text-base leading-relaxed">
-                Every project I take on is built with discipline, scalability, and reliability as foundational principles. I deliver software engineered to perform under pressure, scale responsibly, and provide <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">measurable, long-term value</span>.
+                Every project I take on is built with discipline, scalability, and reliability as foundational principles. I deliver software engineered to perform under pressure, scale responsibly, and provide <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">measurable, long-term value</span>.
               </p>
             </motion.div>
           </div>
@@ -427,61 +438,18 @@ const App = () => {
                   transition={{ delay: 0.1, duration: 0.5 }}
                   className="text-lg text-text-base leading-relaxed max-w-2xl"
                 >
-                  A curated collection of my <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">featured projects</span>, showcasing innovative solutions and modern architectures.
+                  A curated collection of my <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">featured projects</span>, showcasing innovative solutions and modern architectures.
                 </motion.p>
-              </div>
-
-              {/* Sleek Minimalist Carousel Navigation */}
-              <div className="flex items-center gap-4">
-                <div className="flex items-center bg-sidebar-bg/40 backdrop-blur-xl border border-border-base rounded-2xl p-1.5 shadow-lg relative group">
-                  {/* Previous Button */}
-                  <button
-                    onClick={() => setProjectsIndex(Math.max(0, projectsIndex - 1))}
-                    disabled={projectsIndex === 0}
-                    className={`p-2.5 rounded-xl transition-all duration-300 ${projectsIndex === 0
-                      ? 'opacity-20 cursor-not-allowed'
-                      : 'hover:bg-brand-purple/10 text-text-muted hover:text-brand-purple cursor-pointer'
-                      }`}
-                  >
-                    <ChevronLeft size={20} />
-                  </button>
-
-                  {/* Progress Indicator */}
-                  <div className="flex items-center gap-1.5 px-4 border-x border-border-base/10">
-                    {Array.from({ length: Math.ceil(projects.length / 2) }).map((_, i) => (
-                      <div
-                        key={i}
-                        className={`h-1 rounded-full transition-all duration-500 ${i === Math.floor(projectsIndex / 2)
-                          ? 'w-6 bg-brand-purple'
-                          : 'w-2 bg-border-base/30'
-                          }`}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Next Button */}
-                  <button
-                    onClick={() => setProjectsIndex(Math.min(projects.length - 2, projectsIndex + 1))}
-                    disabled={projectsIndex >= projects.length - 2}
-                    className={`p-2.5 rounded-xl transition-all duration-300 ${projectsIndex >= projects.length - 2
-                      ? 'opacity-20 cursor-not-allowed'
-                      : 'hover:bg-brand-purple/10 text-text-muted hover:text-brand-purple cursor-pointer'
-                      }`}
-                  >
-                    <ChevronRight size={20} />
-                  </button>
-                </div>
               </div>
             </div>
 
-            <div className="relative">
+            <div className="relative border border-border-base/10 rounded-[32px] p-6 lg:p-8 bg-sidebar-bg/10">
               {/* Rotating Project Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 relative overflow-hidden min-h-[400px] sm:min-h-[480px]">
-                <AnimatePresence mode="popLayout" initial={false}>
+                <AnimatePresence mode="wait" initial={false}>
                   {visibleProjects.map((project) => (
                     <motion.div
                       key={project.id}
-                      layout
                       initial={{ opacity: 0, scale: 0.95, y: 20 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95, y: -20 }}
@@ -494,6 +462,48 @@ const App = () => {
                     </motion.div>
                   ))}
                 </AnimatePresence>
+              </div>
+
+              {/* Centered Navigation Below Grid */}
+              <div className="flex items-center justify-center mt-10">
+                <div className="flex items-center bg-sidebar-bg/60 backdrop-blur-xl border border-border-base rounded-full p-2 shadow-lg relative group">
+                  {/* Previous Button */}
+                  <button
+                    onClick={() => setProjectsIndex(Math.max(0, projectsIndex - 1))}
+                    disabled={projectsIndex === 0}
+                    className={`p-3 rounded-full transition-all duration-300 ${projectsIndex === 0
+                      ? 'opacity-20 cursor-not-allowed'
+                      : 'hover:bg-brand-purple/20 text-text-muted hover:text-brand-purple cursor-pointer'
+                      }`}
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+
+                  {/* Progress Indicator */}
+                  <div className="flex items-center gap-2 px-6 border-x border-border-base/10 h-8">
+                    {Array.from({ length: projects.length - 1 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className={`h-1.5 rounded-full transition-all duration-500 ${i === projectsIndex
+                          ? 'w-8 bg-brand-purple shadow-[0_0_10px_rgba(124,58,237,0.5)]'
+                          : 'w-2 bg-text-muted/20'
+                          }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Next Button */}
+                  <button
+                    onClick={() => setProjectsIndex(Math.min(projects.length - 2, projectsIndex + 1))}
+                    disabled={projectsIndex >= projects.length - 2}
+                    className={`p-3 rounded-full transition-all duration-300 ${projectsIndex >= projects.length - 2
+                      ? 'opacity-20 cursor-not-allowed'
+                      : 'hover:bg-brand-purple/20 text-text-muted hover:text-brand-purple cursor-pointer'
+                      }`}
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -524,7 +534,7 @@ const App = () => {
                 transition={{ delay: 0.1, duration: 0.5 }}
                 className="text-lg text-text-base leading-relaxed max-w-2xl"
               >
-                An interactive visualization of my core competencies, focusing on <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">modern full-stack technologies</span> and <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">scalable architecture</span>.
+                An interactive visualization of my core competencies, focusing on <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">modern full-stack technologies</span> and <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">scalable architecture</span>.
               </motion.p>
             </div>
 
@@ -553,7 +563,7 @@ const App = () => {
                 transition={{ delay: 0.1, duration: 0.5 }}
                 className="text-lg text-text-base leading-relaxed max-w-2xl"
               >
-                My <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">professional journey</span> and <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">career milestones</span> in the software industry.
+                My <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">professional journey</span> and <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">career milestones</span> in the software industry.
               </motion.p>
             </div>
             <motion.div
@@ -588,8 +598,8 @@ const App = () => {
                 transition={{ delay: 0.1 }}
                 className="text-lg text-text-base leading-relaxed max-w-2xl"
               >
-                I&apos;m currently open to <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">new opportunities</span> and freelance projects.
-                <br />Drop a message and let&apos;s build something <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">amazing</span>!
+                I&apos;m currently open to <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">new opportunities</span> and freelance projects.
+                <br />Drop a message and let&apos;s build something <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent font-semibold">amazing</span>!
               </motion.p>
             </div>
 
