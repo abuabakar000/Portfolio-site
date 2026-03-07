@@ -21,9 +21,9 @@ import {
   ChevronRight,
   ChevronLeft,
   Menu,
-  X,
   Home,
-  Fingerprint
+  Fingerprint,
+  Check
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ReactLenis } from 'lenis/react';
@@ -177,6 +177,16 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [projectsIndex, setProjectsIndex] = useState(0);
   const [time, setTime] = useState(new Date().toLocaleTimeString([], { hour12: false }));
+  const [isEmailCopied, setIsEmailCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('abk.devp@gmail.com');
+    setIsEmailCopied(true);
+    setTimeout(() => {
+      setIsEmailCopied(false);
+    }, 2000);
+  };
+
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Check localStorage or document class (set by our script in index.html)
     const savedTheme = localStorage.getItem('theme');
@@ -607,20 +617,25 @@ const App = () => {
               {/* Email Card - Order 1 on Mobile */}
               <div className="order-1 lg:order-none lg:col-span-2 w-full">
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
-                  className="group p-6 bg-sidebar-bg/40 border border-border-base rounded-3xl transition-all duration-300 hover:border-brand-purple/50 hover:bg-sidebar-bg/60"
+                  className="p-6 bg-sidebar-bg/50 border border-border-base rounded-2xl hover:border-brand-purple/40 transition-colors"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 flex items-center justify-center text-brand-purple">
-                      <Mail size={24} />
+                  <button onClick={handleCopyEmail} className="flex items-center gap-4 text-left w-full group cursor-pointer">
+                    <div className="w-12 h-12 flex items-center justify-center text-brand-purple group-hover:scale-110 transition-transform">
+                      {isEmailCopied ? <Check size={24} className="text-emerald-400" /> : <Mail size={24} />}
                     </div>
                     <div>
                       <p className="text-xs font-bold text-text-muted tracking-tight">Email Me</p>
-                      <p className="text-lg font-bold text-text-base">abubakarkhawaja412@gmail.com</p>
+                      {isEmailCopied ? (
+                        <p className="text-lg font-bold text-emerald-400">Copied to clipboard!</p>
+                      ) : (
+                        <p className="text-lg font-bold text-text-base transition-colors group-hover:text-brand-purple relative z-10 break-all">abk.devp@gmail.com</p>
+                      )}
                     </div>
-                  </div>
+                  </button>
                 </motion.div>
               </div>
 
@@ -893,13 +908,7 @@ const App = () => {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                    <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">Open to Work</span>
-                  </div>
-
                   <div className="flex items-center bg-sidebar-bg/50 px-1 py-1 rounded-full border border-border-base/50">
-
                     <button
                       onClick={() => setIsDarkMode(!isDarkMode)}
                       className="p-1.5 text-text-muted hover:text-text-base transition-all"
@@ -1000,11 +1009,30 @@ const App = () => {
             </div>
 
             <div className="mt-auto pt-6 border-t border-border-base space-y-4">
-              <div className="flex items-center justify-between px-4 py-3 bg-emerald-500/5 border border-emerald-500/20 rounded-xl group transition-all duration-300 hover:bg-emerald-500/10 mb-2">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                  <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-[0.15em]">Open to Work</span>
-                </div>
+              <div className="flex flex-col gap-2 mb-2">
+                <button
+                  onClick={handleCopyEmail}
+                  className="relative flex items-center justify-center gap-3 w-full py-4 bg-brand-purple/5 border border-brand-purple/40 rounded-xl overflow-hidden transition-all duration-300 shadow-[0_0_15px_rgba(139,92,246,0.2)] animate-pulse hover:animate-none hover:bg-brand-purple/15 hover:border-brand-purple hover:shadow-[0_0_25px_rgba(139,92,246,0.4)] cursor-pointer"
+                >
+                  {/* Subtle permanent shimmer */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-purple/20 to-transparent -translate-x-full animate-[scanline_3s_ease-in-out_infinite]" />
+
+                  {isEmailCopied ? (
+                    <>
+                      <Check size={18} className="text-emerald-400 relative z-10" />
+                      <span className="text-[14px] sm:text-[15px] font-bold text-emerald-400 relative z-10 whitespace-nowrap">
+                        Copied!
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <Mail size={18} className="text-brand-purple relative z-10" />
+                      <span className="text-[14px] sm:text-[15px] font-bold text-text-base relative z-10 whitespace-nowrap">
+                        abk.devp@gmail.com
+                      </span>
+                    </>
+                  )}
+                </button>
               </div>
 
               <div className="px-1 py-1 flex items-center justify-between opacity-30 select-none">
